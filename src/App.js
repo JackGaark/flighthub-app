@@ -12,6 +12,7 @@ const dataProvider = {
   getList: (resource, params) => {
     let url = `${rootAPI}${resource}?`;
 
+    console.log(params);
     if (params.pagination) {
       url += stringify({ page: params.pagination.page });
     }
@@ -21,16 +22,16 @@ const dataProvider = {
     }
 
     return fetch(url)
-      .then(res => res.json())
-      .then(res => {
+      .then(fetchResponse => fetchResponse.json())
+      .then(jsonResponse => {
         return {
-          data: res.results
-            ? res.results.map(result => ({
+          data: jsonResponse.results
+            ? jsonResponse.results.map(result => ({
                 ...result,
                 id: result.name
               }))
             : [],
-          total: res.count ? res.count : 0
+          total: jsonResponse.count ? jsonResponse.count : 0
         };
       });
   }

@@ -1,8 +1,9 @@
 import React from "react";
 import { List, Datagrid, TextField } from "react-admin";
+import PostFilter from "./PostFilter";
 
 export const PeopleList = props => (
-  <List {...props}>
+  <List filters={<PostFilter />} exporter={false} {...props}>
     <Datagrid rowClick="edit">
       <TextField source="id" />
       <TextField source="name" />
